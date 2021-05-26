@@ -22,10 +22,10 @@ func TestSimulator_Simulate(t *testing.T) {
 		nil,            // arguments
 	)
 	failOnError(err, "Failed to declare a queue")
-	tS1 := sensors.Sensor{ID: 1, Type: "test", Name: "Тестовый датчик 1", MinValue: 25, MaxValue: 30, Value: 25}
-	tS2 := sensors.Sensor{ID: 2, Type: "test", Name: "Тестовый датчик 2", MinValue: 60, MaxValue: 80, Value: 70}
-	tS3 := sensors.Sensor{ID: 3, Type: "test", Name: "Тестовый датчик 3", MinValue: 90, MaxValue: 100, Value: 95}
-	testSim := Simulator{Status: "idle", Sensors: []sensors.Sensor{tS1, tS2, tS3}}
+	tS1 := sensors.DefaultSensor{ID: 1, Type: "test", Name: "Тестовый датчик 1", MinValue: 25, MaxValue: 30, Value: 25}
+	tS2 := sensors.DefaultSensor{ID: 2, Type: "test", Name: "Тестовый датчик 2", MinValue: 60, MaxValue: 80, Value: 70}
+	tS3 := sensors.DefaultSensor{ID: 3, Type: "test", Name: "Тестовый датчик 3", MinValue: 90, MaxValue: 100, Value: 95}
+	testSim := DefaultSimulator{Status: "idle", Sensors: []sensors.DefaultSensor{tS1, tS2, tS3}}
 	testSim.Simulate(testChannel, testQueue)
 	msgs, err := testChannel.Consume(
 		testQueue.Name, // queue

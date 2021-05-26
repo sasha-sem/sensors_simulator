@@ -2,11 +2,16 @@ package sensors
 
 import (
 	"encoding/json"
+	"fmt"
 	"math/rand"
 	"time"
 )
 
-type Sensor struct {
+type Sensor interface {
+	GenerateValue()
+	fmt.Stringer
+}
+type DefaultSensor struct {
 	ID        int       `json:"id"`
 	Type      string    `json:"type"`
 	Name      string    `json:"name"`
@@ -16,14 +21,14 @@ type Sensor struct {
 	TimeStamp time.Time `json:"timestamp"`
 }
 
-func (s *Sensor) GenerateValue() {
+func (s *DefaultSensor) GenerateValue() {
 	var val float64
 	val = rand.Float64()*(s.MaxValue-s.MinValue) + s.MinValue
 	s.Value = val
 	s.TimeStamp = time.Now()
 }
 
-func (s Sensor) String() string {
+func (s DefaultSensor) String() string {
 	sMar, _ := json.Marshal(s)
 	return string(sMar)
 }

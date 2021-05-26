@@ -21,10 +21,10 @@ func main() {
 	failOnError(err, "Failed to open a channel")
 	defer ch.Close()
 
-	s1 := sensors.Sensor{ID: 1, Type: "temperature", Name: "Датчик температуры 1", MinValue: 25, MaxValue: 30, Value: 25}
-	s2 := sensors.Sensor{ID: 2, Type: "humidity", Name: "Датчик влажности 1", MinValue: 60, MaxValue: 80, Value: 70}
-	s3 := sensors.Sensor{ID: 3, Type: "light", Name: "Датчик освещения 1", MinValue: 90, MaxValue: 100, Value: 95}
-	sim := simulator.Simulator{Status: "idle", Sensors: []sensors.Sensor{s1, s2, s3}}
+	s1 := sensors.DefaultSensor{ID: 1, Type: "temperature", Name: "Датчик температуры 1", MinValue: 25, MaxValue: 30, Value: 25}
+	s2 := sensors.DefaultSensor{ID: 2, Type: "humidity", Name: "Датчик влажности 1", MinValue: 60, MaxValue: 80, Value: 70}
+	s3 := sensors.DefaultSensor{ID: 3, Type: "light", Name: "Датчик освещения 1", MinValue: 90, MaxValue: 100, Value: 95}
+	sim := simulator.DefaultSimulator{Status: "idle", Sensors: []sensors.DefaultSensor{s1, s2, s3}}
 
 	q, err := ch.QueueDeclare(
 		"test", // name

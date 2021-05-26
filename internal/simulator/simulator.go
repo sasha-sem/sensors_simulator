@@ -12,12 +12,15 @@ func failOnError(err error, msg string) {
 	}
 }
 
-type Simulator struct {
+type Simulator interface {
+	Simulate(*amqp.Channel, amqp.Queue)
+}
+type DefaultSimulator struct {
 	Status  string
-	Sensors []sensors.Sensor
+	Sensors []sensors.DefaultSensor
 }
 
-func (sim *Simulator) Simulate(ch *amqp.Channel, q amqp.Queue) {
+func (sim *DefaultSimulator) Simulate(ch *amqp.Channel, q amqp.Queue) {
 	for i := range sim.Sensors {
 		sim.Sensors[i].GenerateValue()
 		err := ch.Publish(
